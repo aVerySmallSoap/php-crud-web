@@ -1,0 +1,40 @@
+.modal{
+    position: relative;
+    box-sizing: border-box;
+    background-color: white;
+    grid-column: 2;
+    grid-row: 2;
+    border-radius: 12px;
+}
+
+.modal-translucent{
+    position: absolute;
+    display: grid;
+    grid-template: 25% 50% 25% / 25% 50% 25%;
+    box-sizing: border-box;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,20%);
+    transition: ease-in 1s;
+    animation: bg-slide-in 1s;
+}
+
+/* Animations */
+@keyframes bg-slide-in {
+    from{
+        top: -1000px;
+    }
+    to{
+        top: 0;
+    }
+}
+
+@keyframes bg-slide-out {
+    from{
+        top: 0;
+    }
+    to{
+        top: -1000px;
+    }
+}

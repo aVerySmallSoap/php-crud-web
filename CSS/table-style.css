@@ -1,0 +1,40 @@
+@font-face {
+    font-family: "Inter Regular";
+    src: url("../misc/fonts/Inter-Regular.otf");
+}
+
+/*Table specific tables*/
+
+/*Generic styles for headers and body*/
+table[id*="table"] th,
+table[id*="table"] td{
+    box-sizing: border-box;
+    font-family: "Inter Regular", sans-serif;
+    padding: 20px;
+}
+
+table[id*="table"] [class*="action-"]{
+    text-decoration: none;
+    color: inherit;
+    background-color: red;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.action-update{
+    background-color: yellow !important;
+}
+
+/* Table animations */
+@keyframes item-slide-out {
+    from{
+        position: relative;
+        opacity: 1;
+        left: 0;
+    }
+    to{
+        position: relative;
+        opacity: 0;
+        left: -1000px;
+    }
+}
