@@ -1,4 +1,4 @@
-function createModal(Table){
+function createModal(){
     let parent = translucent();
     let div = document.createElement("div");
     div.className = "modal";
@@ -11,24 +11,124 @@ function createModal(Table){
 function translucent(){
     let div = document.createElement("div");
     div.className = "modal-translucent";
-    setTimeout(() => {
-        div.addEventListener("click", () => {
-            div.style.transition = "ease-out 1s";
-            div.style.animation = "bg-slide-out 1s";
-            setTimeout(() => div.remove(), 800);
-        });
-    }, 1500);
     document.body.append(div);
     return div;
 }
 
-function populate_modal(Table, event){
+function updateModalData(event){
     let xhr = new XMLHttpRequest();
     xhr.open("GET",
         `./operations/json_table.php?id=${event.currentTarget.dataset.tag}&table=${event.currentTarget.dataset.table}`);
     xhr.send();
     xhr.onload = function (){
         let res = JSON.parse(xhr.response);
-        //Put form here
+        setTimeout(() => {
+            update_modal(document.querySelector(".modal"), res);
+        }, 900);
     }
+}
+
+function addModalData(){
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "./operations/fetchLatestID.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send(`table=${document.querySelector("[id*=table-]").id.split("-")[1]}`);
+    xhr.onload = function (){
+        let res = JSON.parse(xhr.response);
+        setTimeout(() => {
+            add_modal(document.querySelector(".modal"), res);
+        }, 900);
+    }
+}
+
+function update_modal(modal, response){
+    let form = document.createElement("form");
+    let headers = document.querySelectorAll("[id*=table-]>thead>tr>th");
+    form.id = "modal-form";
+    modal.append(form);
+    for (let i = 0; i < headers.length-1; i++) {
+        let label = document.createElement("label");
+        let input = document.createElement("input");
+        let formRow = document.createElement("div");
+        formRow.className = "form-row";
+        label.innerText = headers[i].innerText;
+        if(i === 0){
+            input.setAttribute("disabled", "true");
+        }
+        input.setAttribute("type", "text");
+        input.setAttribute("value", response.Rows[i]);
+        input.setAttribute("name", response.Columns[i]);
+        formRow.append(label, input);
+        form.append(formRow);
+    }
+    actionElements(form);
+}
+
+function add_modal(modal, response){
+    let form = document.createElement("form");
+    let headers = document.querySelectorAll("[id*=table-]>thead>tr>th");
+    form.id = "modal-form";
+    modal.append(form);
+    for (let i = 0; i < headers.length-1; i++) {
+        let label = document.createElement("label");
+        let input = document.createElement("input");
+        let formRow = document.createElement("div");
+        formRow.className = "form-row";
+        label.innerText = headers[i].innerText;
+        if(i === 0){
+            input.setAttribute("disabled", "true");
+            input.setAttribute("name", response.Columns[i]);
+            input.setAttribute("value", response.ID);
+            formRow.append(label, input);
+            form.append(formRow);
+        }else if (headers[i].className.includes("references-")) {
+            formRow.append(label, createOption(
+                document.querySelector("[id*=table-]").id.split("-")[1],
+                document.querySelector("[class*=references-]").className.split("-")[1],
+                response.Columns[i]));
+            form.append(formRow);
+        }else{
+            input.setAttribute("type", "text");
+            input.setAttribute("name", response.Columns[i]);
+            formRow.append(label, input);
+            form.append(formRow);
+        }
+    }
+    actionElements(form)
+}
+
+function createOption(table, reference, parent){
+    let xhr = new XMLHttpRequest();
+    let select = document.createElement("select");
+    xhr.open("GET", `./operations/json_allTableEntries.php?table=${table}&reference=${reference}`, true);
+    xhr.send();
+    xhr.onload = () => {
+        let res = JSON.parse(xhr.response);
+        select.setAttribute("name", parent);
+        for (let i = 0; i < res.length; i++) {
+            let option = document.createElement("option");
+            option.value = res[i];
+            option.innerText = res[i];
+            select.appendChild(option);
+        }
+    }
+    return select;
+}
+
+function actionElements(form){
+    let submit = document.createElement("button");
+    let cancel = document.createElement("button");
+    submit.type = "submit";
+    submit.innerText = "Submit";
+    submit.className = "btn-form-submit";
+    cancel.innerText = "Cancel";
+    cancel.className = "btn-form-cancel";
+    form.append(submit,cancel);
+}
+
+function closeModal(event){
+    event.preventDefault();
+    document.querySelector(".modal-translucent").style.transition = "ease-out 1s";
+    document.querySelector(".modal-translucent").style.animation = "bg-slide-out 1s";
+    setTimeout(() => document.querySelector(".modal-translucent").remove(), 800);
 }

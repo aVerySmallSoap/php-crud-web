@@ -9,7 +9,7 @@ document.querySelectorAll(".action-delete").forEach(elem => {
             xhr.onload = function (){
                 let res = JSON.parse(xhr.response);
                 if(res.Response === "Success"){
-                    let row = document.querySelector(`#table-user>tbody>[class*="${res.id}"]`);
+                    let row = document.querySelector(`table>tbody>[class*="${res.id}"]`);
                     row.style.transition = "ease-out 2000ms";
                     row.style.animation = "item-slide-out 2000ms";
                     setTimeout(() => {

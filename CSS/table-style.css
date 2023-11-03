@@ -13,16 +13,21 @@ table[id*="table"] td{
     padding: 20px;
 }
 
-table[id*="table"] [class*="action-"]{
+[class*="action-"]{
     text-decoration: none;
     color: inherit;
     background-color: red;
+    border: none;
     border-radius: 8px;
     padding: 8px;
 }
 
 .action-update{
     background-color: yellow !important;
+}
+
+.action-add{
+    background-color: cornflowerblue !important;
 }
 
 /* Table animations */

@@ -1,7 +1,6 @@
 <?php
 require_once "./operations/Controller/DBConnection.php";
 ?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,67 +16,66 @@ require_once "./operations/Controller/DBConnection.php";
 <body>
 
     <div class="nav">
-        <div class="nav-content">
-            <span id="nav-title">Dashboard</span>
-            <ul>
-                <li>
-                    <a href="#">
-                        <div class="nav-item">
-                            <span>Users</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="nav-item">
-                            <span>Items</span>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="nav-item">
-                            <span>Categories</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+            <div class="nav-content">
+                <span id="nav-title">Dashboard</span>
+                <ul>
+                    <li>
+                        <a href="./Users.php">
+                            <div class="nav-item">
+                                <span>Users</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./Items.php">
+                            <div class="nav-item">
+                                <span>Items</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./Users.php">
+                            <div class="nav-item">
+                                <span>Categories</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-
-    <table id="table-user">
-        <thead>
+    <div class="table-container">
+            <button class="action-add">Add</button>
+            <table id="table-items">
+                <thead>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Username</th>
-                    <th>Password</th>
+                    <th>Description</th>
+                    <th class="references-category">Category</th>
                     <th>Action</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <?php
-                $result = $conn->query("SELECT * FROM users");
-                while($rows = $result->fetch_assoc()){
-                    $id = $rows['users_id'];
-                    $name = $rows['users_alias'];
-                    $user = $rows['users_name'];
-                    $pass = $rows['users_pass'];
+                $result = $conn->query("SELECT * FROM items");
+                while($rows = $result->fetch_array(MYSQLI_NUM)){
+                    $id = $rows[0];
                     echo "<tr class='$id'>";
                     foreach ($rows as $item){
-                        printf ("<td data-value='tag' style='text-align: center'>%s</td>", $item);
+                        printf ("<td style='text-align: center'>%s</td>", $item);
                     }
-                    echo "<td><a data-table='users' data-tag='$id' class='action-delete'>Delete</a></td>";
-                    echo "<td> <a data-table='users' data-tag='$id' class='action-update'>Update</a></td>";
+                    echo "<td><a data-table='items' data-tag='$id' class='action-delete'>Delete</a></td>";
+                    echo "<td> <a data-table='items' data-tag='$id' class='action-update'>Update</a></td>";
                     echo "</tr>";
                 }
                 ?>
-            </tbody>
-    </table>
+                </tbody>
+            </table>
+        </div>
 
     <script src="./JS/Delete.js"></script>
+    <script src="./JS/Add.js"></script>
     <script src="./JS/Update.js"></script>
     <script src="JS/Table-Modal.js"></script>
-
 </body>
 </html>

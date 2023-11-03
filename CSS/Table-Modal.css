@@ -9,10 +9,10 @@
 
 .modal-translucent{
     position: absolute;
+    top: 0;
     display: grid;
     grid-template: 25% 50% 25% / 25% 50% 25%;
     box-sizing: border-box;
-    top: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,20%);
