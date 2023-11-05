@@ -64,8 +64,8 @@ require_once "./operations/Controller/DBConnection.php";
                 foreach ($rows as $item){
                     printf ("<td style='text-align: center'>%s</td>", $item);
                 }
-                echo "<td><a data-table='category' data-tag='$id' class='action-delete'>Delete</a></td>";
-                echo "<td> <a data-table='category' data-tag='$id' class='action-update'>Update</a></td>";
+                echo "<td><a data-table='category' data-tag='$id' class='action-delete'>Delete</a>";
+                echo "<a data-table='category' data-tag='$id' class='action-update'>Update</a></td>";
                 echo "</tr>";
             }
             ?>

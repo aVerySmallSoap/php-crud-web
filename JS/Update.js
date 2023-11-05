@@ -1,22 +1,24 @@
 document.querySelectorAll(".action-update").forEach(elem => {
-    elem.addEventListener("click", evt=> {
-        if(document.querySelector(".modal-translucent") == null){
-            createModal();
-            updateModalData(evt);
-            //Time out for animations
-            setTimeout(() => {
-                document.querySelector("#modal-form").addEventListener("submit", evt => {
-                    evt.preventDefault();
-                    let xhr = new XMLHttpRequest();
-                    sendRequest(xhr, "./operations/update.php");
-                    respondUpdate(xhr);
-                });
-                document.querySelector("#modal-form>.btn-form-cancel").addEventListener("click",
-                    evt => closeModal(evt));
-            }, 1000);
-        }
-    });
+    elem.addEventListener("click", evt=> updateEvent(evt));
 });
+
+function updateEvent(event){
+    if(document.querySelector(".modal-translucent") == null){
+        createModal();
+        updateModalData(event);
+        //Time out for animations
+        setTimeout(() => {
+            document.querySelector("#modal-form").addEventListener("submit", evt => {
+                evt.preventDefault();
+                let xhr = new XMLHttpRequest();
+                sendRequest(xhr, "./operations/update.php");
+                respondUpdate(xhr);
+            });
+            document.querySelector("#modal-form>.btn-form-cancel").addEventListener("click",
+                evt => closeModal(evt));
+        }, 1000);
+    }
+}
 
 function sendRequest(xhr, url){
     let columns = [];
@@ -45,7 +47,7 @@ function respondUpdate(xhr){
             setTimeout(() => document.querySelector(".modal-translucent").remove(), 800);
             document.querySelector(".table-container").prepend("Entry updated!");
             let data = document.querySelectorAll(`[id*=table-]>tbody>tr[class='${json[0]}']>td`);
-            for (let i = 0; i < data.length-2; i++) {
+            for (let i = 0; i < data.length-1; i++) {
                 data[i].innerText = json[i];
             }
         }
