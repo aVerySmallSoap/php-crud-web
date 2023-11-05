@@ -3,13 +3,15 @@ require "../operations/Controller/DBConnection.php";
 
 $id = $_GET["id"];
 $table = $_GET["table"];
-$result = $conn->query("SELECT {$table}_id FROM $table WHERE {$table}_id='$id'");
-if($result->num_rows > 0){
-    $conn->query("DELETE FROM $table WHERE {$table}_id='$id'");
-    header("Content-Type: application/json");
-    $arr = array("Response" => "Success", "id" => $id);
-}else{
-    header("Content-Type: application/json");
-    $arr = array("Response" => "Error");
+header("Content-Type: application/json");
+try{
+    $result = $conn->query("DELETE FROM $table WHERE {$table}_id='$id'");
+    $arr = array("id" => $id);
+    echo json_encode($arr);
+}catch (Exception $e){
+    if($e->getCode() === 1451){
+        echo json_encode(["Type" => "Failed", "Message" => "Row is in use in another table! Please delete entities first!"]);
+    }else{
+        echo json_encode(["Type" => "Failed", "Message" => $e->getMessage()]);
+    }
 }
-echo json_encode($arr);

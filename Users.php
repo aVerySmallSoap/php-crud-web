@@ -15,69 +15,71 @@ require_once "./operations/Controller/DBConnection.php";
 </head>
 <body>
 
-<div class="nav">
-    <div class="nav-content">
-        <span id="nav-title">Dashboard</span>
-        <ul>
-            <li>
-                <a href="./Users.php">
-                    <div class="nav-item">
-                        <span>Users</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="./Items.php">
-                    <div class="nav-item">
-                        <span>Items</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="./Categories.php">
-                    <div class="nav-item">
-                        <span>Categories</span>
-                    </div>
-                </a>
-            </li>
-        </ul>
+    <div class="nav">
+        <div class="nav-content">
+            <span id="nav-title">Dashboard</span>
+            <ul>
+                <li>
+                    <a href="./Users.php">
+                        <div class="nav-item">
+                            <span>Users</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="./Items.php">
+                        <div class="nav-item">
+                            <span>Items</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="./Categories.php">
+                        <div class="nav-item">
+                            <span>Categories</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
 
-<div class="table-container">
-    <button class="action-add">Add</button>
-    <table id="table-users">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Username</th>
-            <th>Type</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
-        $result = $conn->query("SELECT * FROM users");
-        while($rows = $result->fetch_array(MYSQLI_NUM)){
-            $id = $rows[0];
-            echo "<tr class='$id'>";
-            foreach ($rows as $item){
-                printf ("<td style='text-align: center'>%s</td>", $item);
+    <div class="table-container">
+        <div class="flex-spacing"></div>
+        <button class="action-add">Add</button>
+        <table id="table-users">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            $result = $conn->query("SELECT * FROM users");
+            while($rows = $result->fetch_array(MYSQLI_NUM)){
+                $id = $rows[0];
+                echo "<tr class='$id'>";
+                foreach ($rows as $item){
+                    printf ("<td style='text-align: center'>%s</td>", $item);
+                }
+                echo "<td><a data-table='users' data-tag='$id' class='action-delete'>Delete</a>";
+                echo "<a data-table='users' data-tag='$id' class='action-update'>Update</a></td>";
+                echo "</tr>";
             }
-            echo "<td><a data-table='users' data-tag='$id' class='action-delete'>Delete</a>";
-            echo "<a data-table='users' data-tag='$id' class='action-update'>Update</a></td>";
-            echo "</tr>";
-        }
-        ?>
-        </tbody>
-    </table>
-</div>
+            ?>
+            </tbody>
+        </table>
+    </div>
 
-<script src="./JS/Delete.js"></script>
-<script src="./JS/Add.js"></script>
-<script src="./JS/Update.js"></script>
-<script src="JS/Table-Modal.js"></script>
-
+    <script src="./JS/Delete.js"></script>
+    <script src="./JS/Update.js"></script>
+    <script src="./JS/Add.js"></script>
+    <script src="./JS/Table-Modal.js"></script>
+    <script src="./JS/alert-banner.js"></script>
+    <script src="./JS/ServerRequests.js"></script>
 </body>
 </html>

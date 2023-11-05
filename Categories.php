@@ -45,6 +45,7 @@ require_once "./operations/Controller/DBConnection.php";
     </div>
 
     <div class="table-container">
+        <div class="flex-spacing"></div>
         <button class="action-add">Add</button>
         <table id="table-category">
             <thead>
@@ -74,9 +75,10 @@ require_once "./operations/Controller/DBConnection.php";
     </div>
 
     <script src="./JS/Delete.js"></script>
-    <script src="./JS/Add.js"></script>
     <script src="./JS/Update.js"></script>
-    <script src="JS/Table-Modal.js"></script>
-
+    <script src="./JS/Add.js"></script>
+    <script src="./JS/Table-Modal.js"></script>
+    <script src="./JS/alert-banner.js"></script>
+    <script src="./JS/ServerRequests.js"></script>
 </body>
 </html>

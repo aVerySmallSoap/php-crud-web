@@ -11,6 +11,8 @@ require_once "./operations/Controller/DBConnection.php";
     <link rel="stylesheet" href="./CSS/navigation.css">
     <link rel="stylesheet" href="./CSS/table-style.css">
     <link rel="stylesheet" href="CSS/Table-Modal.css">
+    <script type="module" src="./JS/alert-banner.js"></script>
+    <script type="module" src="./JS/ServerRequests.js"></script>
     <title>Items</title>
 </head>
 <body>
@@ -34,7 +36,7 @@ require_once "./operations/Controller/DBConnection.php";
                         </a>
                     </li>
                     <li>
-                        <a href="./Users.php">
+                        <a href="./Categories.php">
                             <div class="nav-item">
                                 <span>Categories</span>
                             </div>
@@ -44,18 +46,19 @@ require_once "./operations/Controller/DBConnection.php";
             </div>
         </div>
     <div class="table-container">
-            <button class="action-add">Add</button>
-            <table id="table-items">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th class="references-category">Category</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
+        <div class="flex-spacing"></div>
+        <button class="action-add">Add</button>
+        <table id="table-items">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th class="references-category">Category</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
                 <?php
                 $result = $conn->query("SELECT * FROM items");
                 while($rows = $result->fetch_array(MYSQLI_NUM)){
@@ -69,13 +72,15 @@ require_once "./operations/Controller/DBConnection.php";
                     echo "</tr>";
                 }
                 ?>
-                </tbody>
-            </table>
-        </div>
+            </tbody>
+        </table>
+    </div>
 
     <script src="./JS/Delete.js"></script>
-    <script src="./JS/Add.js"></script>
     <script src="./JS/Update.js"></script>
-    <script src="JS/Table-Modal.js"></script>
+    <script src="./JS/Add.js"></script>
+    <script src="./JS/Table-Modal.js"></script>
+    <script src="./JS/alert-banner.js"></script>
+    <script src="./JS/ServerRequests.js"></script>
 </body>
 </html>

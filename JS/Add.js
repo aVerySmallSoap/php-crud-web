@@ -10,8 +10,6 @@ document.querySelector(".action-add").addEventListener("click", evt => {
                 sendRequest(xhr, "./operations/add.php");
                 respondAdd(xhr);
             });
-            document.querySelector("#modal-form>.btn-form-cancel").addEventListener("click",
-                evt => closeModal(evt));
         }, 1000);
     }
 });
@@ -19,18 +17,32 @@ document.querySelector(".action-add").addEventListener("click", evt => {
 function respondAdd(xhr){
     xhr.onload = () => {
         let json = JSON.parse(xhr.response);
-        let table = document.querySelector("[id*=table-]");
-        let row = table.insertRow();
-        row.className = json[0];
-        for (let i = 0; i < json.length; i++) {
-            let cell = row.insertCell(i);
-            cell.innerText = json[i];
+        if(json.Type === "Failed"){
+            createBanner(
+                document.querySelector("#modal-form"),
+                json.Message,
+                "#C51605",
+                5000);
+        }else{
+            let table = document.querySelector("[id*=table-]");
+            let row = document.querySelector(`#${table.id}>tbody`).insertRow();
+            row.className = json[0];
+            for (let i = 0; i < json.length; i++) {
+                let cell = row.insertCell(i);
+                cell.innerText = json[i];
+                cell.style.textAlign = "center";
+            }
+            addAction(table, row, json[0]);
+            closeModal();
+            createBanner(document.querySelector("[class*=table-]"),
+                "Entry successfully added!",
+                "#CECE5A",
+                5000);
         }
-        addCRUD(table, row, json[0]);
     }
 }
 
-function addCRUD(table, row, itemID){
+function addAction(table, row, itemID){
     let Delete = document.createElement("button");
     let Update = document.createElement("button");
     Delete.innerText = "Delete";

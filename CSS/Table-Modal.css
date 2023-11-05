@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Inter Regular";
+    src: url("../misc/fonts/Inter-Regular.otf");
+}
+
 .modal{
     position: relative;
     box-sizing: border-box;
@@ -5,6 +10,71 @@
     grid-column: 2;
     grid-row: 2;
     border-radius: 12px;
+    font-family: "Inter Regular", sans-serif;
+}
+
+#modal-form{
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 80% 20%;
+    height: 100%;
+}
+
+#modal-form .alert-banner{
+    display: flex;
+    grid-column: 1;
+    grid-row: 2;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+#modal-form .alert-banner span{
+    flex: 1 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row-container{
+    grid-column: span 2;
+    overflow-y: auto;
+}
+
+.form-row{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.form-row label{
+    flex: 1 0 100%;
+    text-align: center;
+    margin: 5px 0 5px 0;
+}
+
+.form-row input,
+.form-row select{
+    flex: 1 0 100%;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid black;
+    padding: 8px;
+    max-width: 42svw;
+    font-family: "Inter Regular", sans-serif;
+    text-align: center;
+}
+
+.form-control{
+    display: flex;
+    grid-column: 2;
+    justify-content: end;
+}
+
+.form-control button{
+    border: none;
+    border-radius: 8px;
+    margin: 3svh 25px 3svh 0;
 }
 
 .modal-translucent{

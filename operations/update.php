@@ -6,15 +6,15 @@ $columns = $data[0];
 $rows = $data[1]; //this would be the same size as the # of columns
 $table = $data[2];
 $notEmpty = true;
+header("Content-Type: application/json");
 //Sanitize inputs for blanks then return an error json type
 foreach ($rows as $data){
     if($data === "" || $data === null){
         $notEmpty = false;
-        echo json_encode(["Type" => "Failed"]);
+        echo json_encode(["Type" => "Failed", "Message" => "empty_fields"]);
         break;
     }
 }
-
 if($notEmpty){
     //String build
     $str = "";

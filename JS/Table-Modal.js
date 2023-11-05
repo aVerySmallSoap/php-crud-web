@@ -42,8 +42,10 @@ function addModalData(){
 }
 
 function update_modal(modal, response){
+    let div = document.createElement("div");
     let form = document.createElement("form");
     let headers = document.querySelectorAll("[id*=table-]>thead>tr>th");
+    div.className = "row-container";
     form.id = "modal-form";
     modal.append(form);
     for (let i = 0; i < headers.length-1; i++) {
@@ -54,19 +56,34 @@ function update_modal(modal, response){
         label.innerText = headers[i].innerText;
         if(i === 0){
             input.setAttribute("disabled", "true");
+            input.setAttribute("type", "text");
+            input.setAttribute("value", response.Rows[i]);
+            input.setAttribute("name", response.Columns[i]);
+            formRow.append(label, input);
+            div.append(formRow);
+        }else if(headers[i].className.includes("references-")){
+            formRow.append(label, createOption(
+                document.querySelector("[id*=table-]").id.split("-")[1],
+                document.querySelector("[class*=references-]").className.split("-")[1],
+                response.Columns[i]));
+            div.append(formRow);
+        }else{
+            input.setAttribute("type", "text");
+            input.setAttribute("value", response.Rows[i]);
+            input.setAttribute("name", response.Columns[i]);
+            formRow.append(label, input);
+            div.append(formRow);
         }
-        input.setAttribute("type", "text");
-        input.setAttribute("value", response.Rows[i]);
-        input.setAttribute("name", response.Columns[i]);
-        formRow.append(label, input);
-        form.append(formRow);
     }
+    form.append(div);
     actionElements(form);
 }
 
 function add_modal(modal, response){
+    let div = document.createElement("div");
     let form = document.createElement("form");
     let headers = document.querySelectorAll("[id*=table-]>thead>tr>th");
+    div.className = "row-container";
     form.id = "modal-form";
     modal.append(form);
     for (let i = 0; i < headers.length-1; i++) {
@@ -80,20 +97,21 @@ function add_modal(modal, response){
             input.setAttribute("name", response.Columns[i]);
             input.setAttribute("value", response.ID);
             formRow.append(label, input);
-            form.append(formRow);
+            div.append(formRow);
         }else if (headers[i].className.includes("references-")) {
             formRow.append(label, createOption(
                 document.querySelector("[id*=table-]").id.split("-")[1],
                 document.querySelector("[class*=references-]").className.split("-")[1],
                 response.Columns[i]));
-            form.append(formRow);
+            div.append(formRow);
         }else{
             input.setAttribute("type", "text");
             input.setAttribute("name", response.Columns[i]);
             formRow.append(label, input);
-            form.append(formRow);
+            div.append(formRow);
         }
     }
+    form.append(div);
     actionElements(form)
 }
 
@@ -116,18 +134,24 @@ function createOption(table, reference, parent){
 }
 
 function actionElements(form){
+    let div = document.createElement("div");
     let submit = document.createElement("button");
     let cancel = document.createElement("button");
+    div.className = "form-control";
     submit.type = "submit";
     submit.innerText = "Submit";
     submit.className = "btn-form-submit";
     cancel.innerText = "Cancel";
     cancel.className = "btn-form-cancel";
-    form.append(submit,cancel);
+    cancel.addEventListener("click", event => {
+        event.preventDefault();
+        closeModal();
+    })
+    div.append(submit,cancel);
+    form.append(div);
 }
 
-function closeModal(event){
-    event.preventDefault();
+function closeModal(){
     document.querySelector(".modal-translucent").style.transition = "ease-out 1s";
     document.querySelector(".modal-translucent").style.animation = "bg-slide-out 1s";
     setTimeout(() => document.querySelector(".modal-translucent").remove(), 800);
