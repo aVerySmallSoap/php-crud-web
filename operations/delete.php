@@ -3,7 +3,7 @@ require "../operations/Controller/DBConnection.php";
 
 $id = $_GET["id"];
 $table = $_GET["table"];
-header("Content-Type: application/json");
+header("Content-Type: application/json; charset=utf8");
 try{
     $result = $conn->query("DELETE FROM $table WHERE {$table}_id='$id'");
     $arr = array("id" => $id);

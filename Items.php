@@ -1,5 +1,11 @@
 <?php
 require_once "./operations/Controller/DBConnection.php";
+require  "./operations/Sanitizer.php";
+
+if(!isLoggedIn()){
+    header("location: ./login.html");
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -9,10 +15,9 @@ require_once "./operations/Controller/DBConnection.php";
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./CSS/navigation.css">
-    <link rel="stylesheet" href="./CSS/table-style.css">
+    <link rel="stylesheet" href="CSS/Table-Style.css">
+    <link rel="stylesheet" href="./CSS/Modal.css">
     <link rel="stylesheet" href="CSS/Table-Modal.css">
-    <script type="module" src="./JS/alert-banner.js"></script>
-    <script type="module" src="./JS/ServerRequests.js"></script>
     <title>Items</title>
 </head>
 <body>
@@ -79,8 +84,9 @@ require_once "./operations/Controller/DBConnection.php";
     <script src="./JS/Delete.js"></script>
     <script src="./JS/Update.js"></script>
     <script src="./JS/Add.js"></script>
+    <script src="./JS/Modal.js"></script>
     <script src="./JS/Table-Modal.js"></script>
-    <script src="./JS/alert-banner.js"></script>
+    <script src="JS/Alert-banner.js"></script>
     <script src="./JS/ServerRequests.js"></script>
 </body>
 </html>

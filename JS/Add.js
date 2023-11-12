@@ -7,7 +7,7 @@ document.querySelector(".action-add").addEventListener("click", evt => {
             document.querySelector("#modal-form").addEventListener("submit", evt => {
                 evt.preventDefault();
                 let xhr = new XMLHttpRequest();
-                sendRequest(xhr, "./operations/add.php");
+                sendTableRequest(xhr, "./operations/add.php");
                 respondAdd(xhr);
             });
         }, 1000);
