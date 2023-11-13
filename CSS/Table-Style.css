@@ -7,8 +7,10 @@
 
 /*Generic styles for headers and body*/
 .table-container{
+    position: relative;
     display: flex;
     flex-wrap: wrap;
+    top: 15svh;
 }
 
 table[id*="table"]{
@@ -18,21 +20,24 @@ table[id*="table"]{
     border-collapse: collapse;
     border-top: 1px solid color-mix(in srgb, black 85%, white);
     border-bottom: 1px solid color-mix(in srgb, black 85%, white);
+    transition: height ease-in;
+    overflow-y: scroll;
 }
 
-[id*="table"] th, td{
+table[id*="table"] th, td{
+    box-sizing: border-box;
+    font-family: "Inter Regular", sans-serif;
+    padding: 20px;
     border-left: 1px solid color-mix(in srgb, black 85%, white);
     border-right: 1px solid color-mix(in srgb, black 85%, white);
 }
 
-table[id*="table"] th,
-table[id*="table"] td{
-    font-family: "Inter Regular", sans-serif;
-    padding: 20px;
+table[id*="table"] th{
+    background-color: #EBE3D5;
 }
 
-table[id*="table"] th{
-    background-color: grey;
+table[id*="table"]>tbody>tr{
+    box-sizing: border-box;
 }
 
 table[id*="table"]>tbody>tr>td:last-child {
@@ -42,7 +47,7 @@ table[id*="table"]>tbody>tr>td:last-child {
 [class*="action-"]{
     text-decoration: none;
     color: inherit;
-    background-color: red;
+    background-color: #776B5D;
     border: none;
     border-radius: 8px;
     padding: 8px;
@@ -53,7 +58,7 @@ table[id*="table"]>tbody>tr>td:last-child {
 }
 
 .action-update{
-    background-color: yellow !important;
+    background-color: #B0A695 !important;
     position: relative;
     left: 2svw;
 }
@@ -64,11 +69,16 @@ table[id*="table"]>tbody>tr>td:last-child {
 }
 
 .action-add{
-    margin-top: 3rem;
     flex: 0 1 20%;
     margin-right: 2svw;
-    background-color: cornflowerblue !important;
-    justify-items: end;
+    background-color: #B0A695 !important;
+    font-family: "Inter Regular", sans-serif;
+    font-size: 18px;
+    margin-left: auto;
+    height: 6vh;
+    max-height: 6vh;
+    justify-content: center;
+    align-content: center;
 }
 
 /* Table animations */
@@ -92,8 +102,8 @@ table[id*="table"]>tbody>tr>td:last-child {
     grid-column: 1;
     grid-row: 2;
     font-family: "Inter Regular", sans-serif;
-    margin: 3rem 10svw 3rem 10svw;
-    height: 50px;
+    margin: 0 10svw 0 10svw;
+    height: 6vh;
     border-radius: 8px;
 }
 

@@ -15,8 +15,9 @@ if(!isLoggedIn()){
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./CSS/navigation.css">
-    <link rel="stylesheet" href="CSS/Table-Style.css">
     <link rel="stylesheet" href="./CSS/Modal.css">
+    <link rel="stylesheet" href="./CSS/drop-menu.css">
+    <link rel="stylesheet" href="CSS/Table-Style.css">
     <link rel="stylesheet" href="CSS/Table-Modal.css">
     <title>Items</title>
 </head>
@@ -47,11 +48,17 @@ if(!isLoggedIn()){
                             </div>
                         </a>
                     </li>
+                    <li>
+                        <div data-toggled="false" class="nav-item" id="Setting">
+                            <span>Settings</span>
+                            <img src="./misc/images/arrow_down.png" id="setting-arrow" width="24" height="24">
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
+
     <div class="table-container">
-        <div class="flex-spacing"></div>
         <button class="action-add">Add</button>
         <table id="table-items">
             <thead>
@@ -81,12 +88,14 @@ if(!isLoggedIn()){
         </table>
     </div>
 
-    <script src="./JS/Delete.js"></script>
-    <script src="./JS/Update.js"></script>
-    <script src="./JS/Add.js"></script>
-    <script src="./JS/Modal.js"></script>
-    <script src="./JS/Table-Modal.js"></script>
-    <script src="JS/Alert-banner.js"></script>
-    <script src="./JS/ServerRequests.js"></script>
+    <script src="JS/Functions/Delete.js"></script>
+    <script src="JS/Functions/Update.js"></script>
+    <script src="JS/Functions/Add.js"></script>
+    <script src="JS/Functions/Modal.js"></script>
+    <script src="JS/Functions/Table-Modal.js"></script>
+    <script src="JS/Functions/Alert-banner.js"></script>
+    <script src="JS/Animations/navigation-setting.js"></script>
+    <script src="JS/Functions/ServerRequests.js"></script>
+
 </body>
 </html>

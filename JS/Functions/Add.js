@@ -1,4 +1,4 @@
-document.querySelector(".action-add").addEventListener("click", evt => {
+document.querySelector(".action-add").addEventListener("click", () => {
     if(document.querySelector(".modal-translucent") == null){
         createModal();
         addModalData();
@@ -47,6 +47,8 @@ function addAction(table, row, itemID){
     let Update = document.createElement("button");
     Delete.innerText = "Delete";
     Update.innerText = "Update";
+    Delete.style.fontFamily = "Inter Regular, sanserif";
+    Update.style.fontFamily = "Inter Regular, sanserif";
     Delete.className = "action-delete";
     Update.className = "action-update";
     Delete.dataset.table = table.id.split("-")[1];

@@ -1,0 +1,49 @@
+@font-face {
+    font-family: "Inter Regular";
+    src: url("../misc/fonts/Inter-Regular.otf");
+}
+
+.drop-menu{
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    top: 8vh;
+    z-index: -1;
+    box-shadow: 0 0 4px 4px rgba(0,0,0,20%);
+    transition: ease-in 1s;
+    animation: menu-slide-down 1s;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.drop-menu .drop-row{
+    box-sizing: border-box;
+    flex: 1 0 100%;
+    padding: 10px;
+}
+
+.drop-menu .drop-row a{
+    font-family: "Inter Regular", sans-serif;
+    justify-content: center;
+}
+
+
+/* Animations */
+@keyframes menu-slide-down {
+    from{
+        top: -10vh;
+    }
+    to{
+        top: 8vh;
+    }
+}
+
+@keyframes menu-slide-up {
+    from{
+        top: 8vh;
+    }
+    to{
+        top: -10vh;
+    }
+}

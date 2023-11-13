@@ -22,8 +22,7 @@ function deleteEvent(event){
                 row.style.transition = "ease-out 2000ms";
                 row.style.animation = "item-slide-out 2000ms";
                 createBanner(
-                    document.querySelector(
-                    "[class*=table-]"),
+                    document.querySelector("[class*=table-]"),
                     "Entry successfully deleted!",
                     "#CECE5A",
                     5000);

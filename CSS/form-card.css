@@ -1,0 +1,91 @@
+@font-face {
+    font-family: "Inter Regular";
+    src: url("../misc/fonts/Inter-Regular.otf");
+}
+
+.body-grid{
+    position: relative;
+    flex: 1 0 100%;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template: 10% 60% 30% / 25% 50% 25%;
+    z-index: -3;
+}
+
+.container-card{
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 25px;
+    box-shadow: 0 0 4px 4px rgba(0,0,0,20%);
+    justify-content: center;
+}
+
+form[id*=form-]{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.form-row,
+.form-control{
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 0 100%;
+    justify-content: center;
+}
+
+.form-row label,
+.form-row input,
+.form-row span{
+    font-family: "Inter Regular", sans-serif;
+    text-align: center;
+    box-sizing: border-box;
+    flex: 1 0 100%;
+    margin: 5px 0 5px 0;
+}
+
+.form-row label{
+    margin-top: 10px !important;
+}
+
+.form-row input{
+    border-radius: 10px;
+    border: 1px solid black;
+    padding: 8px;
+    max-width: 30svw;
+    max-height: 5svh;
+}
+
+.form-control{
+    padding: 10px;
+}
+
+.form-control button{
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-family: "Inter Regular", sans-serif;
+    background-color: #776B5D;
+    max-height: 5svh;
+}
+
+/* Alert Banner */
+.alert-banner{
+    display: flex;
+    box-sizing: border-box;
+    flex: 1 0 100%;
+    font-family: "Inter Regular", sans-serif;
+    border-radius: 8px;
+    margin: 2vh 0 2vh 0;
+    max-width: 32svw;
+}
+
+.alert-banner span{
+    display: flex;
+    flex: 1 0 100%;
+    justify-content: center;
+    align-items: center;
+}

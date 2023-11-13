@@ -13,4 +13,4 @@ for ($i = 0; $i < sizeof($data); $i++) {
     $arr[$i] = $data[$i];
 }
 $_SESSION["profileData"] = $arr;
-var_dump($_SESSION["profileData"]);
+header("location: ../Profile.php");

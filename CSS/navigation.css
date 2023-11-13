@@ -10,7 +10,7 @@
     box-sizing: border-box;
     font-family: "Inter Regular", sans-serif;
     height: 8svh;
-    background-color: lightblue;
+    background-color: #F3EEEA;
 }
 
 #nav-title{
@@ -24,23 +24,42 @@
 .nav-content ul{
     box-sizing: border-box;
     display: flex;
+    flex: 1 0 80%;
     list-style: none;
     align-self: center;
     text-align: center;
-    margin: 0;
+    margin: 0
 }
 
 .nav-content ul li{
+    display: flex;
     box-sizing: border-box;
+    align-content: center;
+    text-align: center;
+    margin-left: 1.2rem;
+}
+
+.nav-content ul li:last-child{
+    margin-left: auto;
+    margin-right: 2rem;
 }
 
 .nav-content a{
+    display: flex;
     color: inherit;
     text-decoration: none;
 }
 
 .nav-item{
+    display: flex;
     width: 5svw;
     margin-left: 8px;
     margin-right: 8px;
+    justify-content: center;
+    text-align: center;
+}
+
+.nav-item span{
+    display: flex;
+    align-items: center;
 }
