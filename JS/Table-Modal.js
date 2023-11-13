@@ -1,7 +1,7 @@
 function updateModalData(event){
     let xhr = new XMLHttpRequest();
     xhr.open("GET",
-        `./operations/json_table.php?id=${event.currentTarget.dataset.tag}&table=${event.currentTarget.dataset.table}`);
+        `./operations/fetchTable.php?id=${event.currentTarget.dataset.tag}&table=${event.currentTarget.dataset.table}`);
     xhr.send();
     xhr.onload = function (){
         let res = JSON.parse(xhr.response);
@@ -101,7 +101,7 @@ function add_modal(modal, response){
 function createOption(table, reference, parent){
     let xhr = new XMLHttpRequest();
     let select = document.createElement("select");
-    xhr.open("GET", `./operations/json_allTableEntries.php?table=${table}&reference=${reference}`, true);
+    xhr.open("GET", `./operations/fetchReferrenceTable.php?table=${table}&reference=${reference}`, true);
     xhr.send();
     xhr.onload = () => {
         let res = JSON.parse(xhr.response);

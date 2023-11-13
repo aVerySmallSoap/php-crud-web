@@ -1,34 +1,28 @@
 <?php
 require "./Controller/DBConnection.php";
+require "../operations/sanitizer.php";
+
 
 $data = json_decode(file_get_contents("php://input"));
-$columns = $data[0];
-$rows = $data[1]; //this would be the same size as the # of columns
-$table = $data[2];
-$notEmpty = true;
-header("Content-Type: application/json; charset=utf8");
-//Sanitize inputs for blanks then return an error json type
-foreach ($rows as $data){
-    if($data === "" || $data === null){
-        $notEmpty = false;
-        echo json_encode(["Type" => "Failed", "Message" => "empty_fields"]);
-        break;
-    }
-}
-if($notEmpty){
-    //String build
-    $str = "";
-    for ($i = 1; $i < sizeof($columns); $i++) {
-        if($i != sizeof($columns)-1){
-            $str .= "`".$columns[$i]."` = '".$rows[$i]."' ,";
+if(notEmpty($data)){
+    try{
+        $pt = $conn->prepare(
+            "update profiles set profile_fname = ?, profile_lname = ?, profile_user = ?, profile_pass = ?
+            where profile_fname= ?");
+        $pt->bind_param("sssss", $data[0], $data[1], $data[2], $data[3], $data[0]);
+        if($pt->execute() == 1){
+            echo json_encode(["Type" => "Success"]);
         }else{
-            $str .= "`".$columns[$i]."` = '".$rows[$i]."' ";
+            throw new Exception;
+        }
+    }catch (Exception $e){
+        switch ($e->getCode()){
+            case 1062:
+                echo json_encode(["Message" => "Duplicate entry"]);
+                break;
+            default: echo $e->getCode() ."<br>" . $e->getMessage();
         }
     }
-    $pt = $conn->prepare("UPDATE $table SET $str WHERE $columns[0] = ?;");
-    $pt->bind_param("s",$rows[0]);
-    $result = $pt->execute();
-    if($result){
-        echo json_encode($rows);
-    }
+}else{
+    echo json_encode(["Type" => "Failed", "Message" => "Please fill out all the fields!"]);
 }

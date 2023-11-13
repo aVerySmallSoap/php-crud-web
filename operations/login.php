@@ -1,6 +1,6 @@
 <?php
 require "./Controller/DBConnection.php";
-require "./Sanitizer.php";
+require "./sanitizer.php";
 
 session_start();
 
@@ -14,6 +14,7 @@ if(notEmpty($data)){
     $result = $pt->get_result();
     if($result->num_rows > 0){
         $_SESSION["isLoggedIn"] = true;
+        $_SESSION["Username"] = $data[0];
         echo json_encode(["Type" => "Success"]);
     }else{
         echo json_encode(["Type" => "Failed", "Message" => "User does not exist!"]);

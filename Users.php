@@ -1,6 +1,6 @@
 <?php
 require_once "./operations/Controller/DBConnection.php";
-require  "./operations/Sanitizer.php";
+require "./operations/sanitizer.php";
 
 if(!isLoggedIn()){
     header("location: ./login.html");

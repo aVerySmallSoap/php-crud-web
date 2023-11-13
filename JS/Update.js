@@ -11,7 +11,7 @@ function updateEvent(event){
             document.querySelector("#modal-form").addEventListener("submit", evt => {
                 evt.preventDefault();
                 let xhr = new XMLHttpRequest();
-                sendTableRequest(xhr, "./operations/update.php");
+                sendTableRequest(xhr, "./operations/table-update.php");
                 respondUpdate(xhr);
             });
         }, 1000);
