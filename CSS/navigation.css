@@ -63,3 +63,18 @@
     display: flex;
     align-items: center;
 }
+
+.nav-item button[id*=button-]{
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    font-family: "Inter Regular", sans-serif;
+}
+
+#button-login{
+    background-color: #776B5D;
+}
+
+#button-register{
+    background-color: #B0A695;
+}
