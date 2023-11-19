@@ -68,6 +68,7 @@ function update_modal(modal, response){
                 if(headers[i].hasAttribute("data-calculable")){
                     bindInput.setAttribute("data-calculable", headers[i].dataset.calculable)
                 }
+                bindInput.setAttribute("value", response.Rows[i]);
                 formRow.append(label, bindInput);
             }, 50);
         }else if(headers[i].hasAttribute("data-calculable") || headers[i].hasAttribute("data-calculate") ){
@@ -77,6 +78,7 @@ function update_modal(modal, response){
                 input.setAttribute("data-calculable", headers[i].dataset.calculable);
                 input.setAttribute("disabled", "true");
             }
+            input.setAttribute("value", response.Rows[i]);
             input.setAttribute("name", response.Columns[i]);
             formRow.append(label, input);
             div.append(formRow);

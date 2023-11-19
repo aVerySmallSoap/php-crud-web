@@ -18,10 +18,16 @@ if(notEmpty($data)){
             echo json_encode($rows);
         }
     }catch (Exception $e){
-        if($e->getCode() === 1062){
-            echo json_encode(["Type" => "Failed", "Message" => "Duplicate Entry!"]);
-        }else{
-            echo json_encode(["Type" => "Failed", "Message" => $e->getMessage()]);
+        switch ($e->getCode()){
+            case 1062:
+                echo json_encode(["Type" => "Failed", "Message" => "Duplicate Entry!"]);
+                break;
+            case 1366:
+                echo json_encode(["Type" => "Failed", "Message" => "Fill out all fields!"]);
+                break;
+            default:
+                echo json_encode(["Type" => "Failed", "Message" => $e->getMessage(), "Code" => $e->getCode()]);
+
         }
     }
 }else{
