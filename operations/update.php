@@ -1,8 +1,6 @@
 <?php
 require "./Controller/DBConnection.php";
-require "../operations/sanitizer.php";
-
-
+require "./utilities/sanitizer.php";
 $data = json_decode(file_get_contents("php://input"));
 if(notEmpty($data)){
     try{

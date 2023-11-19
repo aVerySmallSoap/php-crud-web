@@ -1,6 +1,6 @@
 <?php
 require_once "./operations/Controller/DBConnection.php";
-require "./operations/sanitizer.php";
+require "./operations/utilities/sanitizer.php";
 
 if(!isLoggedIn()){
     header("location: ./login.html");
@@ -66,6 +66,7 @@ if(!isLoggedIn()){
                 <th>ID</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Price</th>
                 <th class="references-category">Category</th>
                 <th>Action</th>
             </tr>

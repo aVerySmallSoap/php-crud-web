@@ -6,14 +6,18 @@ function deleteEvent(event){
     let choice = confirm("Are you sure about this?");
     if(choice === true){
         let xhr = new XMLHttpRequest();
-        xhr.open("GET",
-            `./operations/delete.php?id=${event.currentTarget.dataset.tag}&table=${event.currentTarget.dataset.table}`);
-        xhr.send();
+        xhr.open("POST",
+            `./operations/delete.php`);
+        xhr.send(JSON.stringify([
+                event.currentTarget.dataset.table,
+                event.currentTarget.dataset.tag
+            ])
+        );
         xhr.onload = function (){
             let res = JSON.parse(xhr.response);
             if(res.Type === "Failed"){
                 createBanner(
-                    document.querySelector("[id*=table-]"),
+                    document.querySelector("[class*=table-]"),
                     "Failed!",
                     "#C51605",
                     5000);

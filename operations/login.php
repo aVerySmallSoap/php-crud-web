@@ -1,6 +1,6 @@
 <?php
 require "./Controller/DBConnection.php";
-require "./sanitizer.php";
+require "./utilities/sanitizer.php";
 
 session_start();
 

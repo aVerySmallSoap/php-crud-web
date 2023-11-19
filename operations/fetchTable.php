@@ -1,9 +1,10 @@
 <?php
 require_once "../operations/Controller/DBConnection.php";
 
-$table = $_GET["table"];
+$request = json_decode(file_get_contents("php://input"));
+$table = $request[1];
+$id = $request[0];
 $table_id = $table."_id";
-$id = $_GET["id"];
 $result = $conn->query("SELECT * FROM $table WHERE $table_id=$id");
 $columns = array();
 $rows = $result->fetch_row();

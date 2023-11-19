@@ -1,6 +1,6 @@
 <?php
 require "./Controller/DBConnection.php";
-require "./sanitizer.php";
+require "./utilities/sanitizer.php";
 
 $data = json_decode(file_get_contents("php://input"));
 $id = getLatestID();

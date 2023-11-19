@@ -1,5 +1,5 @@
 <?php
-require "./operations/sanitizer.php";
+require "./operations/utilities/sanitizer.php";
 if(!isLoggedIn()){
     header("location: ./login.html");
 }

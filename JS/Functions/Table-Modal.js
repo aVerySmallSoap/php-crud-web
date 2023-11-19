@@ -1,8 +1,11 @@
 function updateModalData(event){
     let xhr = new XMLHttpRequest();
-    xhr.open("GET",
-        `./operations/fetchTable.php?id=${event.currentTarget.dataset.tag}&table=${event.currentTarget.dataset.table}`);
-    xhr.send();
+    xhr.open("POST",
+        `./operations/fetchTable.php`);
+    xhr.send(JSON.stringify([
+        event.currentTarget.dataset.tag,
+        document.querySelector("[id*=table-]").id.split("-")[1]
+    ]));
     xhr.onload = function (){
         let res = JSON.parse(xhr.response);
         setTimeout(() => {
@@ -31,6 +34,7 @@ function update_modal(modal, response){
     div.className = "row-container";
     form.id = "modal-form";
     modal.append(form);
+    form.append(div);
     for (let i = 0; i < headers.length-1; i++) {
         let label = document.createElement("label");
         let input = document.createElement("input");
@@ -47,8 +51,34 @@ function update_modal(modal, response){
         }else if(headers[i].className.includes("references-")){
             formRow.append(label, createOption(
                 document.querySelector("[id*=table-]").id.split("-")[1],
-                document.querySelector("[class*=references-]").className.split("-")[1],
-                response.Columns[i]));
+                headers[i],
+                response.Columns[i]
+                )
+            );
+            div.append(formRow);
+        }else if(headers[i].className.includes("bind-")){
+            div.append(formRow);
+            setTimeout(() => {
+                let bindInput = createBindInput(
+                    headers[i].className.split("-")[1],
+                    document.querySelector(
+                        `#modal-form>.row-container>.form-row>select[data-bind=${headers[i].className.split("-")[1]}]`),
+                    response.Columns[i]
+                );
+                if(headers[i].hasAttribute("data-calculable")){
+                    bindInput.setAttribute("data-calculable", headers[i].dataset.calculable)
+                }
+                formRow.append(label, bindInput);
+            }, 50);
+        }else if(headers[i].hasAttribute("data-calculable") || headers[i].hasAttribute("data-calculate") ){
+            if(headers[i].hasAttribute("data-calculate")){
+                input.setAttribute("data-calculate", headers[i].dataset.calculate);
+            }else{
+                input.setAttribute("data-calculable", headers[i].dataset.calculable);
+                input.setAttribute("disabled", "true");
+            }
+            input.setAttribute("name", response.Columns[i]);
+            formRow.append(label, input);
             div.append(formRow);
         }else{
             input.setAttribute("type", "text");
@@ -58,8 +88,8 @@ function update_modal(modal, response){
             div.append(formRow);
         }
     }
-    form.append(div);
     actionElements(form);
+    calculateData();
 }
 
 function add_modal(modal, response){
@@ -69,6 +99,7 @@ function add_modal(modal, response){
     div.className = "row-container";
     form.id = "modal-form";
     modal.append(form);
+    form.append(div);
     for (let i = 0; i < headers.length-1; i++) {
         let label = document.createElement("label");
         let input = document.createElement("input");
@@ -84,8 +115,34 @@ function add_modal(modal, response){
         }else if (headers[i].className.includes("references-")) {
             formRow.append(label, createOption(
                 document.querySelector("[id*=table-]").id.split("-")[1],
-                document.querySelector("[class*=references-]").className.split("-")[1],
-                response.Columns[i]));
+                headers[i],
+                response.Columns[i]
+                )
+            );
+            div.append(formRow);
+        }else if(headers[i].className.includes("bind-")){
+            div.append(formRow);
+            setTimeout(() => {
+                let bindInput = createBindInput(
+                    headers[i].className.split("-")[1],
+                    document.querySelector(
+                        `#modal-form>.row-container>.form-row>select[data-bind=${headers[i].className.split("-")[1]}]`),
+                    response.Columns[i]
+                );
+                if(headers[i].hasAttribute("data-calculable")){
+                    bindInput.setAttribute("data-calculable", headers[i].dataset.calculable)
+                }
+                formRow.append(label, bindInput);
+            }, 50);
+        }else if(headers[i].hasAttribute("data-calculable") || headers[i].hasAttribute("data-calculate") ){
+            if(headers[i].hasAttribute("data-calculate")){
+                input.setAttribute("data-calculate", headers[i].dataset.calculate);
+            }else{
+                input.setAttribute("data-calculable", headers[i].dataset.calculable);
+                input.setAttribute("disabled", "true");
+            }
+            input.setAttribute("name", response.Columns[i]);
+            formRow.append(label, input);
             div.append(formRow);
         }else{
             input.setAttribute("type", "text");
@@ -94,18 +151,55 @@ function add_modal(modal, response){
             div.append(formRow);
         }
     }
-    form.append(div);
-    actionElements(form)
+    actionElements(form);
+    calculateData();
 }
 
-function createOption(table, reference, parent){
+function createOption(table, reference, column){
     let xhr = new XMLHttpRequest();
     let select = document.createElement("select");
-    xhr.open("GET", `./operations/fetchReferrenceTable.php?table=${table}&reference=${reference}`, true);
-    xhr.send();
+    xhr.open("POST", `./operations/fetchReferenceTable.php`, true);
+    xhr.send(JSON.stringify([
+        table,
+        reference.className.split("-")[1],
+        column
+    ]));
     xhr.onload = () => {
         let res = JSON.parse(xhr.response);
-        select.setAttribute("name", parent);
+        select.setAttribute("name", column);
+        if(reference.hasAttribute("data-bind")){
+            select.setAttribute("data-bind", reference.className.split("-")[1]);
+            select.addEventListener("change", (e) => {
+                let columns = [];
+                document.querySelectorAll("#modal-form>.row-container>.form-row>input[data-bind]").forEach(
+                    e => {
+                        columns.push(e.name);
+                    }
+                );
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", `./operations/refreshBoundData.php`, true);
+                xhr.send(JSON.stringify([
+                    e.target.dataset.bind,
+                    columns,
+                    e.target.name,
+                    e.target.value
+                ]));
+                xhr.onload = () => {
+                    let res = JSON.parse(xhr.response);
+                    let fields =
+                        document.querySelectorAll("#modal-form>.row-container>.form-row>input[data-bind]");
+                    for (let i = 0; i < fields.length; i++) {
+                        fields[i].value = res[i];
+                    }
+                }
+                setTimeout(() => {
+                    let x = document.querySelector("input[data-calculable*='var-']").value;
+                    let y = document.querySelector("input[data-calculate]").value;
+                    let z = x * y;
+                    document.querySelector("input[data-calculable*='output']").value = z;
+                }, 25);
+            });
+        }
         for (let i = 0; i < res.length; i++) {
             let option = document.createElement("option");
             option.value = res[i];
@@ -114,6 +208,37 @@ function createOption(table, reference, parent){
         }
     }
     return select;
+}
+
+function createBindInput(table, reference, column){
+    let xhr = new XMLHttpRequest();
+    let input = document.createElement("input");
+    xhr.open("POST", `./operations/fetchBoundData.php`, true);
+    xhr.send(JSON.stringify([
+        table,
+        reference.getAttribute("name"),
+        reference.value,
+        column
+    ]));
+    xhr.onload = () => {
+        let res = JSON.parse(xhr.response);
+        input.setAttribute("name", column);
+        input.setAttribute("data-bind", reference.dataset.bind);
+        input.setAttribute("disabled", true);
+        input.value = res[0];
+    }
+    return input;
+}
+
+function calculateData(){
+    if(document.querySelector("th[data-calculate]") !== null){
+        document.querySelector("input[data-calculate]").addEventListener("keyup", e => {
+            let x = document.querySelector("input[data-calculable*='var-']").value;
+            let y = e.currentTarget.value;
+            let out = document.querySelector("input[data-calculable*='output']");
+            out.value = x * y;
+        });
+    }
 }
 
 function actionElements(form){
