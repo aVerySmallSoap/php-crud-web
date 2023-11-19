@@ -35,7 +35,7 @@ if(!isLoggedIn()){
                         </a>
                     </li>
                     <li>
-                        <a href="./Items.php">
+                        <a href="#">
                             <div class="nav-item">
                                 <span>Items</span>
                             </div>
@@ -43,6 +43,13 @@ if(!isLoggedIn()){
                     </li>
                     <li>
                         <a href="./Categories.php">
+                            <div class="nav-item">
+                                <span>Categories</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./Orders.php">
                             <div class="nav-item">
                                 <span>Categories</span>
                             </div>

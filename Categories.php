@@ -42,7 +42,14 @@ if(!isLoggedIn()){
                 </a>
             </li>
             <li>
-                <a href="./Categories.php">
+                <a href="#">
+                    <div class="nav-item">
+                        <span>Categories</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="./Orders.php">
                     <div class="nav-item">
                         <span>Categories</span>
                     </div>

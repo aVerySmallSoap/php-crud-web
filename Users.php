@@ -28,7 +28,7 @@ if(!isLoggedIn()){
         <span id="nav-title">Dashboard</span>
         <ul>
             <li>
-                <a href="./Users.php">
+                <a href="#">
                     <div class="nav-item">
                         <span>Users</span>
                     </div>
@@ -43,6 +43,13 @@ if(!isLoggedIn()){
             </li>
             <li>
                 <a href="./Categories.php">
+                    <div class="nav-item">
+                        <span>Categories</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="./Orders.php">
                     <div class="nav-item">
                         <span>Categories</span>
                     </div>

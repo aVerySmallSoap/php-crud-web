@@ -44,6 +44,13 @@ if(!isLoggedIn()){
                 </a>
             </li>
             <li>
+                <a href="./Orders.php">
+                    <div class="nav-item">
+                        <span>Categories</span>
+                    </div>
+                </a>
+            </li>
+            <li>
                 <div data-toggled="false" class="nav-item" id="Setting">
                     <span>Settings</span>
                     <img src="./misc/images/arrow_down.png" id="setting-arrow" width="24" height="24">
