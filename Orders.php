@@ -51,7 +51,7 @@ if(!isLoggedIn()){
             <li>
                 <a href="#">
                     <div class="nav-item">
-                        <span>Categories</span>
+                        <span>Orders</span>
                     </div>
                 </a>
             </li>

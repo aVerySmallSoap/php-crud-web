@@ -46,7 +46,7 @@ if(!isLoggedIn()){
             <li>
                 <a href="./Orders.php">
                     <div class="nav-item">
-                        <span>Categories</span>
+                        <span>Orders</span>
                     </div>
                 </a>
             </li>
